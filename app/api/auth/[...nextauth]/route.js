@@ -61,7 +61,7 @@ export const authOptions = {
     signIn: "/login",
     signUp: "/register",
   },
-  
+  secret: "IPFLxCflT6hz3ed2IjADaCe0clpFgb9AyCV81FuVJ6c=",
 };
 
 const handler = NextAuth(authOptions);
