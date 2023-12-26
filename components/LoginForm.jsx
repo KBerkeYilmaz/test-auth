@@ -24,11 +24,14 @@ export default function LoginForm() {
       });
 
       if (res.error) {
+        setIsLoading(false);
         setError("Invalid Credentials");
+        router.push("/login")
         return;
       }
-      router.push("/dashboard");
       setIsLoading(false);
+      router.push("/dashboard");
+      
     } catch (error) {
       console.log(error);
     }
