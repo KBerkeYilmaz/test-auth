@@ -12,6 +12,9 @@ export default function UserInfo() {
       redirect: false,
       callbackUrl: `${window.location.origin}/`,
     });
+    router.push("/");
+
+
   };
 
   return (

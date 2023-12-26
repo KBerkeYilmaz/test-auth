@@ -1,6 +1,7 @@
 import { Inter, Bitter } from "next/font/google";
 import Navbar from "@components/Navbar";
 import SessionProvider from "@components/Provider"
+
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -15,7 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessionProvider>
+        <SessionProvider refetchInterval={5 * 60}>
           <Navbar />
           {children}
         </SessionProvider>
