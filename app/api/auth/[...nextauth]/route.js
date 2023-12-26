@@ -50,7 +50,7 @@ export const authOptions = {
     },
     jwt: async ({ token, user }) => {
       user && (token.user = user);
-      console.log(user)
+      console.log(token)
       return token;
     },
   },

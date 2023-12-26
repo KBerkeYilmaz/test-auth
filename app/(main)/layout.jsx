@@ -1,6 +1,7 @@
-import { Bitter, Inter } from "next/font/google";
+import { Inter, Bitter } from "next/font/google";
+import Navbar from "@components/Navbar";
 import SessionProvider from "@components/Provider"
-import "./globals.css";
+import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <SessionProvider>
+          <Navbar />
           {children}
         </SessionProvider>
       </body>

@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function RegisterForm() {
   const [name, setName] = useState("");
@@ -22,22 +23,7 @@ export default function RegisterForm() {
     }
 
     try {
-      const resUserExists = await fetch("api/auth/userExists", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const { user } = await resUserExists.json();
-
-      if (user) {
-        setError("User already exists.");
-        return;
-      }
-
-      const res = await fetch("api/auth/register", {
+      const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,8 +51,10 @@ export default function RegisterForm() {
     <div className="grid place-items-center h-screen text-black">
       <div className="shadow-lg p-5 rounded-lg border-t-4 border-green-400  bg-white">
         <h1 className="text-xl font-bold my-4">Register</h1>
-
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <form
+          className="w-1/3 h-fit bg-white rounded-lg flex flex-col justify-center py-10 px-10 gap-10"
+          onSubmit={handleSubmit}
+        >
           <input
             onChange={(e) => setName(e.target.value)}
             type="text"
@@ -82,19 +70,17 @@ export default function RegisterForm() {
             type="password"
             placeholder="Password"
           />
-          <button className="bg-green-600 text-white font-bold cursor-pointer px-6 py-2">
-            Register
-          </button>
+          <div>
+            <button className="bg-green-600 text-white w-full rounded-sm font-bold cursor-pointer px-6 py-2">
+              Register
+            </button>
 
-          {error && (
-            <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
-              {error}
-            </div>
-          )}
-
-          <Link className="text-sm mt-3 text-right" href={"/login"}>
-            Already have an account? <span className="underline">Login</span>
-          </Link>
+            {error && (
+              <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
+                {error}
+              </div>
+            )}
+          </div>
         </form>
       </div>
     </div>

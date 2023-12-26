@@ -26,8 +26,7 @@ export default function LoginForm() {
         setError("Invalid Credentials");
         return;
       }
-
-      router.replace("dashboard");
+      router.push("dashboard");
     } catch (error) {
       console.log(error);
     }

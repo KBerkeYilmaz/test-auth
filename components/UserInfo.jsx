@@ -1,7 +1,6 @@
 "use client";
 
-import { signOut } from "next-auth/react";
-import { useSession } from "next-auth/react";
+import { signOut,useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function UserInfo() {
@@ -13,8 +12,6 @@ export default function UserInfo() {
       redirect: false,
       callbackUrl: `${window.location.origin}/`,
     });
-    window.location.href = "/";
-
   };
 
   return (
