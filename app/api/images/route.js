@@ -12,12 +12,4 @@ export const GET = async (request) => {
         return new Response("Failed to fetch all images", { status: 500 })
     }
 }
-
-export const config = {
-    api: {
-      bodyParser: {
-        sizeLimit: '50mb', // Set the body size limit
-      },
-    },
-  };
   
