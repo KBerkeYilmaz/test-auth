@@ -1,16 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
 import FeedElements from "@components/Landing_Page/FeedElements";
-import { Bitter, Space_Mono, Lato } from "next/font/google";
 import LandingHero from "@components/Landing_Page/LandingHero";
 import GalleryPreview from "@components/Landing_Page/GalleryPreview";
+import BlogElements from "@components/Landing_Page/BlogElements";
 
-export const blogPosts = [
-  { number: 1, title: "test", article: "article article article article" },
-  { number: 2, title: "test1", article: "article article article article" },
-  { number: 3, title: "test2", article: "article article article article" },
-  { number: 4, title: "test3", article: "article article article article" },
-];
+
 
 const Home = () => {
   return (
@@ -25,30 +18,7 @@ const Home = () => {
 
       {/* BLOG POSTS */}
 
-      <section
-        id="blog"
-        className="h-[50vh] w-screen overflow-hidden"
-      >
-        <div className="flex flex-col items-center w-full h-full px-[67px]">
-          <div className="w-full flex items-center">
-            <h1 className="text-4xl w-1/2">Blog Yazılarını Görüntüle</h1>
-          </div>
-          <div className="grid grid-cols-4 gap-10 w-full h-full m-10">
-            {blogPosts.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className=" bg-red-300 rounded-[10px] max-h-fit"
-                >
-                  <h1>{item.number}</h1>
-                  <h2>{item.title}</h2>
-                  <p>{item.article}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      <BlogElements />
 
       {/* GALLERY */}
       
