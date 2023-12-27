@@ -22,69 +22,142 @@ import HomeIcon from "@mui/icons-material/Home";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import WysiwygIcon from "@mui/icons-material/Wysiwyg";
 import FilterBAndWIcon from "@mui/icons-material/FilterBAndW";
+import BuildIcon from "@mui/icons-material/Build";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import { signOut, useSession } from "next-auth/react";
+import { Build, ExpandLess, ExpandMore } from "@mui/icons-material";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { Collapse, ListSubheader } from "@mui/material";
+import { AddCircleOutline } from "@mui/icons-material";
+import { Update } from "@mui/icons-material";
 
 const drawerWidth = 240;
 const navTitles = ["Ana Sayfa", "Blog", "Galeri", "Akış"];
 
 function ResponsiveDrawer(props) {
+  const { data: session } = useSession();
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [open, setOpen] = React.useState({});
+  const router = useRouter();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const linkMap = [
-     `/`,
-    `/dashboard/posts`,
-    `/dashboard/gallery`,
-    `/dashboard/feed`,
+  const handleClick = (index) => {
+    setOpen((prevOpen) => ({
+      ...prevOpen,
+      [index]: !prevOpen[index],
+    }));
+  };
+
+  const handleLogOut = async () => {
+    // Default callback URL
+    let callbackUrl = "/";
+
+    // Update the callback URL if on the client-side
+    if (typeof window !== "undefined") {
+      callbackUrl = `${window.location.origin}/`;
+    }
+
+    await signOut({
+      redirect: false,
+      callbackUrl: callbackUrl,
+    });
+
+    router.push("/");
+  };
+
+  const firstLinks = [
+    { name: "Ana Sayfa", icon: <HomeIcon />, path:"/", hasNested: false },
+    {
+      name: "Blog Postları",
+      icon: <WysiwygIcon />,
+      path: "/dashboard/posts",
+      hasNested: true,
+    },
+    {
+      name: "Galeri",
+      icon: <FilterBAndWIcon />,
+      path: "/dashboard/gallery",
+      hasNested: true,
+    },
+    {
+      name: "Akış",
+      icon: <RssFeedIcon />,
+      path: "/dashboard/feed",
+      hasNested: true,
+    },
+    {
+      name: "Settings",
+      icon: <BuildIcon />,
+      path: "/dashboard/settings",
+      hasNested: false,
+    },
+    {
+      name: "Logout",
+      icon: <ExitToAppIcon />,
+      action: handleLogOut,
+      hasNested: false,
+    },
+  ];
+
+  const nestedLinks = [
+    { name: "New", path: "/new" },
+    { name: "Update", path: "/update" },
   ];
 
   const drawer = (
     <div>
-      <Toolbar />
-      <Divider />
+      {/* ... */}
       <List>
-        {["Ana Sayfa", "Blog", "Galeri", "Akış"].map((text, index) => (
-
-          <ListItem
-            key={text}
-            disablePadding
-            className="w-full"
-          >
-            <Link href={linkMap[index]}>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index === 0 && <HomeIcon />}
-                  {index === 1 && <WysiwygIcon />}
-                  {index === 2 && <FilterBAndWIcon />}
-                  {index === 3 && <RssFeedIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
+        {firstLinks.map((link, index) => (
+          <React.Fragment key={link.name}>
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={
+                  link.action || (() => link.hasNested && handleClick(index))
+                }
+              >
+                <ListItemIcon>{link.icon}</ListItemIcon>
+                <ListItemText primary={link.name} />
+                {link.hasNested &&
+                  (open[index] ? <ExpandLess /> : <ExpandMore />)}
               </ListItemButton>
-            </Link>
-          </ListItem>
+            </ListItem>
+            {link.hasNested && (
+              <Collapse
+                in={open[index]}
+                timeout="auto"
+                unmountOnExit
+              >
+                <List
+                  component="div"
+                  disablePadding
+                >
+                  {nestedLinks.map((nestedLink) => (
+                    <ListItem
+                      key={nestedLink.name}
+                      disablePadding
+                    >
+                      <Link href={link.path + nestedLink.path}>
+                        <ListItemButton sx={{ pl: 4 }}>
+                          <ListItemText primary={nestedLink.name} />
+                        </ListItemButton>
+                      </Link>
+                    </ListItem>
+                  ))}
+                </List>
+              </Collapse>
+            )}
+          </React.Fragment>
         ))}
       </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem
-            key={text}
-            disablePadding
-          >
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+
+      {/* ... */}
     </div>
   );
 

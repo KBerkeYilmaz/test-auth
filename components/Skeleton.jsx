@@ -11,16 +11,15 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Skeleton from "@mui/material/Skeleton";
+import AlertBar from "@components/AlertBar";
 
 import { useEffect, useState } from "react";
-
-// ... (Other imports remain the same)
 
 function Media({ post, loading }) {
   // Media component now expects a post object and a loading state
 
   return (
-    <Card sx={{ maxWidth: 345, m: 2 }}>
+    <Card sx={{ maxWidth: 345, m: 2, maxHeight: 400 }}>
       <CardHeader
         avatar={
           loading ? (
@@ -69,7 +68,7 @@ Media.propTypes = {
 export default function LoadingState({ fetchUrl }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [isSuccess, setIsSuccess] = useState(false)
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
@@ -78,6 +77,7 @@ export default function LoadingState({ fetchUrl }) {
         const data = await response.json();
         setPosts(data);
         setLoading(false);
+        isSuccess(true)
       } catch (error) {
         console.error("Failed to fetch posts:", error);
         setLoading(false);

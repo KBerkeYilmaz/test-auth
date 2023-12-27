@@ -22,9 +22,7 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          {isLoading ? (
-            <div className="px-10 cursor-pointer">Loading...</div>
-          ) : session ? (
+          {session ? (
             <Link href="/dashboard" className="px-10 cursor-pointer">
               Kullanıcı Paneli
             </Link>

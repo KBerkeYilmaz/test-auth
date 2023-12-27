@@ -3,28 +3,24 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { NextResponse } from 'next/server'
-
-
 import Form from "@components/Form";
 
-const CreatePost = () => {
+const createFeed = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const [submitting, setIsSubmitting] = useState(false);
-  const [post, setPost] = useState({ title: "", article: "" });
+  const [feed, setFeed] = useState({ title: "", article: "" });
 
-  const createPost = async (e) => {
+  const postFeed = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/posts/new", {
+      const response = await fetch("/api/feeds/new", {
         method: "POST",
         body: JSON.stringify({
-          title: post.title,  
-          article: post.article,
-          userId: session?.user.id,
+          title: feed.title,
+          article: feed.article,
         }),
       });
 
@@ -40,13 +36,13 @@ const CreatePost = () => {
 
   return (
     <Form
-      type='Create'
-      post={post}
-      setPost={setPost}
+      type="Create"
+      post={feed}
+      setPost={setFeed}
       submitting={submitting}
-      handleSubmit={createPost}
+      handleSubmit={postFeed}
     />
   );
 };
 
-export default CreatePost;
+export default createFeed;

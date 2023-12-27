@@ -25,3 +25,30 @@ p.hero-paragraph {
 .hero-title{
   font-family: Bitter;
 }
+
+/* Custom.css */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 48px; /* Smaller font size */
+  }
+
+  .hero-paragraph {
+    font-size: 18px; /* Smaller font size */
+    width: auto; /* Adjust width as necessary */
+  }
+
+  /* Adjust the SVG dimensions and position */
+  .sun-svg {
+    width: 100px; /* Smaller width */
+    height: 100px; /* Smaller height */
+    right: -60px; /* Adjust position */
+    top: -90px; /* Adjust position */
+  }
+
+  .galaxy-svg {
+    width: 400px; /* Smaller width */
+    height: 400px; /* Smaller height */
+    right: 10px; /* Adjust position */
+    top: -1px; /* Adjust position */
+  }
+}
