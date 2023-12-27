@@ -3,8 +3,8 @@
 import { useState, useRef } from "react";
 import AlertBar from "./AlertBar";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
+import { ButtonGroup } from "@mui/material";
 
 const Input = styled("input")({
   display: "none",
@@ -83,7 +83,7 @@ const UploadImage = () => {
           className="w-full h-full bg-black"
         />
       )}
-      <Stack
+      <ButtonGroup
         direction="row"
         spacing={2}
         className="w-full"
@@ -106,10 +106,7 @@ const UploadImage = () => {
             Resim Seç
           </Button>
         </label>
-        <Stack
-          direction="row"
-          spacing={5}
-        >
+        
           <Button
             variant="contained"
             disabled={isLoading}
@@ -126,8 +123,8 @@ const UploadImage = () => {
           >
             {isLoading ? "Yükleniyor..." : "Yükle"}
           </Button>
-        </Stack>
-      </Stack>
+        
+      </ButtonGroup>
     </div>
   );
 };
