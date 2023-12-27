@@ -21,13 +21,7 @@ function Media({ post, loading }) {
   return (
     <Card sx={{ maxWidth: 345, m: 2, maxHeight: 400 }}>
       <CardHeader
-        avatar={
-          loading ? (
-            <Skeleton animation="wave" variant="circular" width={40} height={40} />
-          ) : (
-            <Avatar alt={post.title} src={post.image} />
-          )
-        }
+        
         action={
           loading ? null : (
             <IconButton aria-label="settings">

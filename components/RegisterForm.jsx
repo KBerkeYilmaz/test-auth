@@ -64,7 +64,7 @@ export default function RegisterForm() {
       ) : (
         
         <div className="shadow-lg p-5 rounded-lg border-t-4 border-green-400 bg-white">
-          {success && <AlertBar message="Registration successful!" severity="success" />}
+          {success && <AlertBar message="Kayıt Başarılı!" severity="success" />}
           {error && !success && <AlertBar message={error} severity="error" />}
 
 

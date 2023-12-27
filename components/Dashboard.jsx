@@ -1,20 +1,16 @@
 "use client";
 
 import * as React from "react";
-import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -26,11 +22,9 @@ import BuildIcon from "@mui/icons-material/Build";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
-import { Build, ExpandLess, ExpandMore } from "@mui/icons-material";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { Collapse, ListSubheader } from "@mui/material";
-import { AddCircleOutline } from "@mui/icons-material";
-import { Update } from "@mui/icons-material";
+import { Collapse } from "@mui/material";
 
 const drawerWidth = 240;
 const navTitles = ["Ana Sayfa", "Blog", "Galeri", "Akış"];
@@ -54,6 +48,10 @@ function ResponsiveDrawer(props) {
     }));
   };
 
+  const handleHomeClick = (index) => {
+    router.push("/");
+  };
+
   const handleLogOut = async () => {
     // Default callback URL
     let callbackUrl = "/";
@@ -72,7 +70,12 @@ function ResponsiveDrawer(props) {
   };
 
   const firstLinks = [
-    { name: "Ana Sayfa", icon: <HomeIcon />, path:"/", hasNested: false },
+    {
+      name: "Ana Sayfa",
+      icon: <HomeIcon />,
+      action: handleHomeClick,
+      hasNested: false,
+    },
     {
       name: "Blog Postları",
       icon: <WysiwygIcon />,
@@ -112,7 +115,6 @@ function ResponsiveDrawer(props) {
 
   const drawer = (
     <div>
-      {/* ... */}
       <List>
         {firstLinks.map((link, index) => (
           <React.Fragment key={link.name}>
@@ -157,7 +159,6 @@ function ResponsiveDrawer(props) {
         ))}
       </List>
 
-      {/* ... */}
     </div>
   );
 

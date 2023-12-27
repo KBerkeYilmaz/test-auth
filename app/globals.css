@@ -52,3 +52,55 @@ p.hero-paragraph {
     top: -1px; /* Adjust position */
   }
 }
+
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes reverse-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.spin-animation {
+  animation: spin 0.5s ease-in;
+}
+
+.reverse-spin-animation {
+  animation: reverse-spin 0.35s ease-in;
+}
+
+
+.li-hover-animate {
+  position: relative;
+  overflow: hidden;
+}
+
+.li-hover-animate::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  transition: width 0.25s ease-out;
+  z-index: -1;
+}
+
+.li-hover-animate:hover::after {
+  width: 100%;
+}
+
+.is-active {
+  transform: scale(1.05);
+}

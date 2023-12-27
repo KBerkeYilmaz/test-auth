@@ -26,12 +26,7 @@ export default function UserInfo() {
         <div>
           Email: <span className="font-bold">{session?.user?.email}</span>
         </div>
-        <button
-          onClick={handleLogOut}
-          className="bg-red-400 text-white font-bold px-6 py-2 mt-3"
-        >
-          Log Out
-        </button>
+       
       </div>
     </div>
   );
